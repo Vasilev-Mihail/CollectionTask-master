@@ -1,10 +1,11 @@
 package controller;
 
-import collectionTask.SortCollection;
 import model.HouseBuild;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class Controller {
     public void Controller(ArrayList<HouseBuild> HB){
@@ -17,8 +18,8 @@ public class Controller {
         ControllerHandAuto controllerHandAuto = new ControllerHandAuto();
         int buff = intStringController.IntController();
         if(buff == 5){
-            SortCollection sortCollection = new SortCollection();
-            HB = sortCollection.SortByFlats(HB);
+            HB = HB.stream().sorted(Comparator.comparing(HouseBuild::getCountFlats))
+                    .collect(Collectors.toCollection(ArrayList::new));
             ControllerHouseBuild(HB);
         }
         if(buff == 4){
